@@ -56,7 +56,7 @@ class MedicalAgents:
         Conversation: {" ".join([m['content'] for m in state['messages']])}
         
         Has the doctor provided:
-        1. Specific homeopathic remedy/recommendation?
+        1. Specific remedy/recommendation?
         2. Clear application instructions?
         3. Avoided unnecessary referrals?
         
@@ -122,4 +122,19 @@ def generate_cot(row):
         "cot": [msg["content"] for msg in messages]
     }
 
-# Example usage remains the same
+# Process single row
+sample_row = {
+    "question": """Q. Kindly suggest a homeopathic medicine to stop hairfall and promote hair growth.""",
+    "patient_detail": """Hello doctor,
+I am 24 years old, and for the past nine years, I am facing hair fall problem. Nowadays, my 60 % of hair is falling on my top and front of my head. I checked my thyroid and hemoglobin many times, but their reports are good. I use many home remedies and hair oils, but when I stop using it, again, it starts falling. The allopathic doctor says use Minoxidil 5 %, Finasteride, and hair serum. But Finasteride has many side effects. Can you please tell me is any medicine available in homeopathy which stops hair fall and promotes hair growth? If yes, can you please tell me the name?""",
+    "doctor_reply": """Hello. I checked the attached photo (attachment removed to protect patient identity) and read your description. It seems you have been suffering from hair loss problem for a longtime. Do you eat healthy food like vegetables and fruits every day? Sometimes lack of nutrition is also the reason for hair loss. Do you know if your father also differed from hair loss issue at this young age? Did you suffer from severe health issues or chronic illnesses? If you do not think above mentioned is the cause for your hair fall, then the only reason I can think is that you have been going through severe stress which has taken a toll on your health. Homeopathy would be a good option in this case as it will cure our problem from the root cause, and there will be no side effects. So to prescribe you a correct homeopathic remedy I need to understand your mental, emotional, and physical state. He ce I need detail case history which can be done either through face to face consultation or online consultation. I would advise you to visit a good homeopath for consultation. For the time being, you can apply arnica hair oil twice a week on your hair. Just mix one spoon of Arnica oil with five spoons of coconut oil and apply all over your scalp. You can gently massage your ear with this mixture. Try this for 15 days and then let me know how you feel. I hope you start feeling better. Let me know if you have any questions.
+"""
+}
+
+result = generate_cot(sample_row)
+print("Generated COT:")
+for i, message in enumerate(result["cot"]):
+    speaker = "Patient" if i % 2 == 0 else "Doctor"
+    print(f"{speaker}: {message}")
+
+print(f"\nConversation stored in 'conversation_log.txt'")
