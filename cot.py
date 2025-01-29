@@ -33,7 +33,7 @@ class MedicalAgents:
         }
 
     def doctor_node(self, state: MedicalState):
-        prompt = f"""You are a homeopathic doctor. Provide specific remedies and practical advice. 
+        prompt = f"""You are a Professional doctor. Provide specific remedies and practical advice. 
         Only suggest professional consultation if absolutely necessary. 
         Example response style: {state['doctor_reply']}
         
@@ -123,3 +123,6 @@ def generate_cot(row):
     }
 
 # Example usage remains the same
+
+# Export the graph for LangGraph CLI
+graph = build_workflow().compile()
